@@ -52,6 +52,7 @@
         <bpmn:flowNodeRef>IntermediateThrowEvent_1xukhk0</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ParallelGateway_0p31w9k</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_106y0wv</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_0q57lrw</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_12j1bi3" name="Zweitbetreuer">
         <bpmn:flowNodeRef>Task_08zw859</bpmn:flowNodeRef>
@@ -257,9 +258,10 @@
     <bpmn:endEvent id="EndEvent_0osande" name="Ende Verlängerungsantrag">
       <bpmn:incoming>SequenceFlow_1grvtmk</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_17cibrp" name="Bearbeitungszeit &#60; 4Wochen?">
+    <bpmn:exclusiveGateway id="ExclusiveGateway_17cibrp" name="Bearbeitungszeit &#60; 4 Wochen?">
       <bpmn:incoming>SequenceFlow_0b6yb7l</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0hi5rxg</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0rq5j2i</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:endEvent id="EndEvent_1aif3us" name="Thema geändert">
       <bpmn:incoming>SequenceFlow_01kifh2</bpmn:incoming>
@@ -424,7 +426,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_1yy47pz" sourceRef="Task_0o4nyit" targetRef="Task_10iqv5g" />
     <bpmn:sequenceFlow id="SequenceFlow_09je3de" sourceRef="Task_10iqv5g" targetRef="ExclusiveGateway_0canb8x" />
     <bpmn:sequenceFlow id="SequenceFlow_1grvtmk" sourceRef="ExclusiveGateway_0canb8x" targetRef="EndEvent_0osande" />
-    <bpmn:sequenceFlow id="SequenceFlow_0hi5rxg" sourceRef="ExclusiveGateway_17cibrp" targetRef="Task_1jiew2w" />
+    <bpmn:sequenceFlow id="SequenceFlow_0hi5rxg" name="Ja" sourceRef="ExclusiveGateway_17cibrp" targetRef="Task_1jiew2w" />
     <bpmn:sequenceFlow id="SequenceFlow_01kifh2" sourceRef="Task_00ei4gg" targetRef="EndEvent_1aif3us" />
     <bpmn:sequenceFlow id="SequenceFlow_0kayvrw" sourceRef="Task_1jiew2w" targetRef="Task_100m5ft" />
     <bpmn:sequenceFlow id="SequenceFlow_0xaijj0" sourceRef="Task_100m5ft" targetRef="Task_00ei4gg" />
@@ -473,6 +475,10 @@
       <bpmn:incoming>SequenceFlow_0c90jfs</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0c90jfs" sourceRef="Task_0anh99c" targetRef="EndEvent_02bebts" />
+    <bpmn:sequenceFlow id="SequenceFlow_0rq5j2i" name="Nein" sourceRef="ExclusiveGateway_17cibrp" targetRef="EndEvent_0q57lrw" />
+    <bpmn:endEvent id="EndEvent_0q57lrw" name="Thema darf nicht mer geändert werden">
+      <bpmn:incoming>SequenceFlow_0rq5j2i</bpmn:incoming>
+    </bpmn:endEvent>
     <bpmn:textAnnotation id="TextAnnotation_1qmkrf2">    <bpmn:text>Themenvorschlag anhängen</bpmn:text>
 </bpmn:textAnnotation>
     <bpmn:association id="Association_1f16z18" sourceRef="Task_1fagm2d" targetRef="TextAnnotation_1qmkrf2" />
@@ -986,14 +992,14 @@
       <bpmndi:BPMNShape id="ExclusiveGateway_17cibrp_di" bpmnElement="ExclusiveGateway_17cibrp" isMarkerVisible="true">
         <dc:Bounds x="1791" y="-139" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1776" y="-85" width="81" height="24" />
+          <dc:Bounds x="1722" y="-101" width="81" height="24" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0hi5rxg_di" bpmnElement="SequenceFlow_0hi5rxg">
         <di:waypoint xsi:type="dc:Point" x="1841" y="-114" />
         <di:waypoint xsi:type="dc:Point" x="1908" y="-114" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1874.5" y="-135" width="0" height="12" />
+          <dc:Bounds x="1869" y="-135" width="11" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0kayvrw_di" bpmnElement="SequenceFlow_0kayvrw">
@@ -1369,6 +1375,19 @@
         <di:waypoint xsi:type="dc:Point" x="4485" y="-496" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="4500" y="75" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_0q57lrw_di" bpmnElement="EndEvent_0q57lrw">
+        <dc:Bounds x="1798" y="-15.947368421052602" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1776" y="24" width="81" height="36" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0rq5j2i_di" bpmnElement="SequenceFlow_0rq5j2i">
+        <di:waypoint xsi:type="dc:Point" x="1816" y="-89" />
+        <di:waypoint xsi:type="dc:Point" x="1816" y="-16" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1821" y="-58.5" width="21" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>

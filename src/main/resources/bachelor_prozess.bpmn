@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.10.0">
   <bpmn:collaboration id="Collaboration_0mv2qeo">
-    <bpmn:participant id="Participant_0se8kgq" name="Bachelorarbeit" processRef="Bachelor" />
+    <bpmn:participant id="Participant_0se8kgq" name="Bachelorarbeit_IST" processRef="Bachelor_IST" />
   </bpmn:collaboration>
-  <bpmn:process id="Bachelor" name="Bachelorarbeit" isExecutable="true" camunda:versionTag="1.0">
+  <bpmn:process id="Bachelor_IST" name="Bachelorarbeit_IST" isExecutable="false" camunda:versionTag="1.0">
     <bpmn:laneSet>
       <bpmn:lane id="Lane_1qie79t" name="Student">
         <bpmn:flowNodeRef>Task_0k5gqio</bpmn:flowNodeRef>

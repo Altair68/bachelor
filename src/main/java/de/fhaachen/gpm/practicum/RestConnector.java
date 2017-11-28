@@ -9,35 +9,26 @@ import org.camunda.bpm.engine.delegate.JavaDelegate;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class RestConnector implements JavaDelegate {
+public abstract class RestConnector implements JavaDelegate {
 
-    URL url;
+    private DelegateExecution delegateExecution;
 
     @Override
-    public void execute(DelegateExecution delegateExecution) throws Exception {
-
+    public void execute(DelegateExecution aDelegateExecution) throws Exception {
+        this.delegateExecution = aDelegateExecution;
         try {
             Client client = Client.create();
 
-            String theUrl = String.format("http://localhost:8000/insertThesis?student_id=%s&title=%s&supervisor=%s",
-                    delegateExecution.getVariable("StudentId"),
-                    delegateExecution.getVariable("Thema"),
-                    delegateExecution.getVariable("Professor"));
+            String theUrl = getUrl();
             WebResource webResource = client
                     .resource(theUrl);
 
-            ClientResponse response = webResource.accept("application/json")
-                    .put(ClientResponse.class);
+            ClientResponse response = execMethod(webResource);
 
             if (response.getStatus() != 200) {
                 throw new RuntimeException("Failed : HTTP error code : "
                         + response.getStatus());
             }
-
-            String output = response.getEntity(String.class);
-
-            System.out.println("Output from Server .... \n");
-            System.out.println(output);
 
         } catch (Exception e) {
 
@@ -46,4 +37,12 @@ public class RestConnector implements JavaDelegate {
         }
 
     }
+
+    protected DelegateExecution getDelegateExecution() {
+        return delegateExecution;
+    }
+
+    protected abstract ClientResponse execMethod(WebResource aResource);
+
+    protected abstract String getUrl();
 }

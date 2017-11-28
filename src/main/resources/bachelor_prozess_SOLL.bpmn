@@ -61,6 +61,7 @@
         <camunda:formData>
           <camunda:formField id="StudentId" label="Student-ID" type="long" />
           <camunda:formField id="Thema" label="Thema" type="string" />
+          <camunda:formField id="Professor" label="Betreuer" type="string" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:outgoing>SequenceFlow_11wr0yv</bpmn:outgoing>

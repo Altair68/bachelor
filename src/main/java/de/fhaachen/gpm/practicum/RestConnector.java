@@ -19,8 +19,12 @@ public class RestConnector implements JavaDelegate {
         try {
             Client client = Client.create();
 
+            String theUrl = String.format("http://localhost:8000/insertThesis?student_id=%s&title=%s&supervisor=%s",
+                    delegateExecution.getVariable("StudentId"),
+                    delegateExecution.getVariable("Thema"),
+                    delegateExecution.getVariable("Professor"));
             WebResource webResource = client
-                    .resource("http://localhost:8000/insertThesis?student_id=1&title=Test&supervisor=Fassbender");
+                    .resource(theUrl);
 
             ClientResponse response = webResource.accept("application/json")
                     .put(ClientResponse.class);

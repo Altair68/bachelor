@@ -13,7 +13,7 @@ public class PostRestConnector extends RestConnector {
 
     @Override
     protected String getUrl() {
-        boolean theApprovedFlag = Boolean.parseBoolean((String) getDelegateExecution().getVariable("BachelorarbeitBestanden"));
+        boolean theApprovedFlag = (Boolean) getDelegateExecution().getVariable("BachelorarbeitBestanden");
 
         if (theApprovedFlag) {
             return String.format("http://localhost:8000/approveThesis?id=%s",

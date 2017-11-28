@@ -152,6 +152,11 @@
 
     <!-- Add your own dependencies here, if in compile scope, they are added to the war -->
 
+    <dependency>
+      <groupId>com.sun.jersey</groupId>
+      <artifactId>jersey-client</artifactId>
+      <version>1.19.4</version>
+    </dependency>
   </dependencies>
 
   <repositories>

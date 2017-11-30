@@ -292,6 +292,9 @@ childElement("isApprovedReturn").textContent()}]]></camunda:outputParameter>
         <camunda:inputOutput>
           <camunda:outputParameter name="ThesisId">${ThesisId}</camunda:outputParameter>
         </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="ThesisId" />
+        </camunda:properties>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0qkxfh0</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0dny86e</bpmn:outgoing>

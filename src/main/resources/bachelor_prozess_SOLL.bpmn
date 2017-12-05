@@ -288,14 +288,6 @@ childElement("isApprovedReturn").textContent()}]]></camunda:outputParameter>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
     <bpmn:serviceTask id="Task_Bachelorarbeit_abspeichern" name="Bachelorarbeit abspeichern" camunda:class="de.fhaachen.gpm.practicum.PutRestConnector">
-      <bpmn:extensionElements>
-        <camunda:inputOutput>
-          <camunda:outputParameter name="ThesisId">${ThesisId}</camunda:outputParameter>
-        </camunda:inputOutput>
-        <camunda:properties>
-          <camunda:property name="ThesisId" />
-        </camunda:properties>
-      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0qkxfh0</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0dny86e</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_10io088">
@@ -410,11 +402,6 @@ childElement("isApprovedReturn").textContent()}]]></camunda:outputParameter>
       <bpmn:incoming>SequenceFlow_1dbez1u</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:serviceTask id="Task_02ktrua" name="Ergebnis abspeichern" camunda:class="de.fhaachen.gpm.practicum.PostRestConnector">
-      <bpmn:extensionElements>
-        <camunda:inputOutput>
-          <camunda:inputParameter name="ThesisId">${ThesisId}</camunda:inputParameter>
-        </camunda:inputOutput>
-      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_01msqc7</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_195ryn6</bpmn:outgoing>
     </bpmn:serviceTask>

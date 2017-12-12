@@ -65,8 +65,8 @@
           <camunda:formField id="StudentId" label="Student-ID" type="long" />
           <camunda:formField id="Thema" label="Thema" type="string" />
           <camunda:formField id="Professor" label="Betreuer" type="string" />
-          <camunda:formField id="EmailStudent" label="Email Student" type="string" />
-          <camunda:formField id="EmailProf" label="Email Professor" type="string" />
+          <camunda:formField id="EmailStudent" label="Email Student" type="string" defaultValue="HubertHutauf@gmail.com" />
+          <camunda:formField id="EmailProf" label="Email Professor" type="string" defaultValue="HubertHutauf@gmail.com" />
           <camunda:formField id="EmailSenderAdress" label="Email Versandadresse" type="string" defaultValue="HubertHutauf@gmail.com" />
           <camunda:formField id="EmailSenderPassword" label="Email Versandpasswort" type="string" />
         </camunda:formData>
@@ -429,7 +429,7 @@ childElement("isApprovedReturn").textContent()}]]></camunda:outputParameter>
       </bpmn:dataOutputAssociation>
     </bpmn:manualTask>
     <bpmn:sequenceFlow id="SequenceFlow_0ky0btk" sourceRef="Task_1m69jkh" targetRef="Task_17cd7mp" />
-    <bpmn:serviceTask id="Task_1m69jkh" camunda:class="de.fhaachen.gpm.practicum.StrawpollCreateConnector">
+    <bpmn:serviceTask id="Task_1m69jkh" name="Strawpoll erstellen" camunda:class="de.fhaachen.gpm.practicum.StrawpollCreateConnector">
       <bpmn:incoming>SequenceFlow_0ykk3jw</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0ky0btk</bpmn:outgoing>
     </bpmn:serviceTask>

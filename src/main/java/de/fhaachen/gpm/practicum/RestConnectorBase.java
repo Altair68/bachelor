@@ -6,9 +6,14 @@ import com.sun.jersey.api.client.WebResource;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
+import java.util.logging.Logger;
+
 public abstract class RestConnectorBase implements JavaDelegate {
 
     private DelegateExecution delegateExecution;
+
+    protected final Logger LOGGER = Logger.getLogger(RestConnectorBase.class.getName());
+
 
     @Override
     public void execute(DelegateExecution aDelegateExecution) throws Exception {

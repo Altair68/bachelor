@@ -4,6 +4,9 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class StrawpollCreateConnector extends RestConnectorBase {
     @Override
     protected ClientResponse execMethod(WebResource aResource) {
@@ -11,7 +14,8 @@ public class StrawpollCreateConnector extends RestConnectorBase {
         StringBuilder theInput = new StringBuilder();
 
         theInput.append("{\"title\": \"");
-        theInput.append((String) getDelegateExecution().getVariable("pollTitle"));
+        SimpleDateFormat theDateFormat = new SimpleDateFormat("mm-dd-yyyy");
+        theInput.append((Date) getDelegateExecution().getVariable("pollTitle"));
         theInput.append("\", \"options\": [\"Ja\", \"Nein\"] }");
 
         ClientResponse theResponse = aResource.accept("application/json")

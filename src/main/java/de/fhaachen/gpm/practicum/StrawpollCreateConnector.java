@@ -18,6 +18,9 @@ public class StrawpollCreateConnector extends RestConnectorBase {
         theInput.append(theDateFormat.format((Date) getDelegateExecution().getVariable("pollTitle")));
         theInput.append("\", \"options\": [\"Ja\", \"Nein\"] }");
 
+        LOGGER.info(getDelegateExecution().getVariable("pollTitle").toString());
+        LOGGER.info(theInput.toString());
+
         ClientResponse theResponse = aResource.accept("application/json")
                 .type("application/json").post(ClientResponse.class, theInput.toString());
 

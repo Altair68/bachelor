@@ -26,7 +26,7 @@ public class StrawpollGetConnector extends RestConnectorBase {
             theResult = "none";
         }
 
-        getDelegateExecution().setVariable("strawpollVoted", "none");
+        getDelegateExecution().setVariable("strawpollVoted", theResult);
         return theResponse;
     }
 

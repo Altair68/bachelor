@@ -31,7 +31,7 @@ CREATE TABLE `thesis` (
   `supervisor` varchar(255) NOT NULL,
   `approved` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `thesis` (
 
 LOCK TABLES `thesis` WRITE;
 /*!40000 ALTER TABLE `thesis` DISABLE KEYS */;
-INSERT INTO `thesis` VALUES (1,1,'camunda!','prof',-1),(2,2,'asdf','qwer',-1),(3,2,'asdf','qwer',-1),(4,2,'asdf','Matze',-1),(5,1,'asdf','asdf',-1),(6,1,'asdf','sadf',1),(7,1,'lalalalalalalalala','sdf',1),(8,1,'equipbgreuqibgureiqpgbrpeq','fdsafdsa',0),(9,2,'lalelu','asdf',-1),(10,2,'hammer','asdf',1),(11,2,'dlddldldld','qwerfdhj4',-1),(12,2,'t1','adsf',0),(13,1,'t2','asdf',1);
+INSERT INTO `thesis` VALUES (1,1,'camunda!','prof',-1),(2,2,'asdf','qwer',-1),(3,2,'asdf','qwer',-1),(4,2,'asdf','Matze',-1),(5,1,'asdf','asdf',-1),(6,1,'asdf','sadf',1),(7,1,'lalalalalalalalala','sdf',1),(8,1,'equipbgreuqibgureiqpgbrpeq','fdsafdsa',0),(9,2,'lalelu','asdf',-1),(10,2,'hammer','asdf',1),(11,2,'dlddldldld','qwerfdhj4',-1),(12,2,'t1','adsf',0),(13,1,'t2','asdf',1),(14,1,'huibu','asdf',1),(15,1,'ghrnoreiahjng','asdf',1),(16,1,'fdsjnfbosd','dafsdf',1),(17,1,'gfdge','gre',1),(18,1,'err3ujrqj5tquqr','32r',1),(19,1,'adhreajtarlzu654','dgf',1),(20,1,'z54i5w98zt','wetrewta',1),(21,1,'z4qu453q754qzrea','adsga',1),(22,1,'ezrtu54wuthrgsrta','rgerger',1),(23,1,'z45qzu453ergea','dfds',1),(24,1,'greGNEWUTG9EW','fdsafd',1),(25,1,'r3e2t34zgdfa','sdfas',1),(26,1,'364ztrw','ertwe',1),(27,1,'grgqreqer43tg43','safda',1),(28,1,'asdf32r32t43eadf','asdf',1);
 /*!40000 ALTER TABLE `thesis` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,7 +53,7 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-30 20:07:35
+-- Dump completed on 2017-12-12 13:43:24
 CREATE DATABASE  IF NOT EXISTS `gpm_server1` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `gpm_server1`;
 -- MySQL dump 10.13  Distrib 5.7.20, for Linux (x86_64)
@@ -161,4 +161,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-30 20:07:35
+-- Dump completed on 2017-12-12 13:43:24

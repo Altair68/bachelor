@@ -3,7 +3,7 @@ package de.fhaachen.gpm.practicum;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
-public class PutRestConnector extends RestConnector {
+public class PutRestConnector extends RestConnectorBase {
     @Override
     protected ClientResponse execMethod(WebResource aResource) {
         ClientResponse theResponse = aResource.accept("application/json")

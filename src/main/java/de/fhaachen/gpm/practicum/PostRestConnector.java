@@ -2,9 +2,8 @@ package de.fhaachen.gpm.practicum;
 
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
-import org.camunda.bpm.engine.delegate.DelegateExecution;
 
-public class PostRestConnector extends RestConnector {
+public class PostRestConnector extends RestConnectorBase {
     @Override
     protected ClientResponse execMethod(WebResource aResource) {
         return aResource.accept("application/json")

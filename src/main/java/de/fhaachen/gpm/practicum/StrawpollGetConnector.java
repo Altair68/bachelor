@@ -32,7 +32,7 @@ public class StrawpollGetConnector extends RestConnectorBase {
 
     @Override
     protected String getUrl() {
-        int theId = Integer.parseInt((String) getDelegateExecution().getVariable("strawpollId"));
+        int theId = (Integer) getDelegateExecution().getVariable("strawpollId");
         return "http://localhost:4500/api/v2/polls" + "/" + theId;
     }
 }

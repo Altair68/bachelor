@@ -14,19 +14,17 @@ public class StrawpollCreateConnector extends RestConnectorBase {
         StringBuilder theInput = new StringBuilder();
 
         theInput.append("{\"title\": \"");
-        SimpleDateFormat theDateFormat = new SimpleDateFormat("mm-dd-yyyy");
+        SimpleDateFormat theDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         theInput.append(theDateFormat.format((Date) getDelegateExecution().getVariable("pollTitle")));
         theInput.append("\", \"options\": [\"Ja\", \"Nein\"] }");
 
         ClientResponse theResponse = aResource.accept("application/json")
-                .post(ClientResponse.class, theInput.toString());
+                .type("application/json").post(ClientResponse.class, theInput.toString());
 
-        System.out.println(theResponse.getEntity(String.class));
+        final JSONObject theContent = new JSONObject(theResponse.getEntity(String.class));
+        int theId = theContent.getInt("id");
 
-        //final JSONObject theContent = new JSONObject(theResponse.getEntity(String.class));
-        //int theId = theContent.getInt("id");
-
-        //getDelegateExecution().setVariable("strawpollId", theId);
+        getDelegateExecution().setVariable("strawpollId", theId);
         return theResponse;
     }
 

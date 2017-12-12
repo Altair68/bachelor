@@ -27,7 +27,7 @@ public abstract class RestConnectorBase implements JavaDelegate {
 
             ClientResponse response = execMethod(webResource);
 
-            if (response.getStatus() != 200) {
+            if (response.getStatus() >= 200 && response.getStatus() < 300) {
                 throw new RuntimeException("Failed : HTTP error code : "
                         + response.getStatus());
             }

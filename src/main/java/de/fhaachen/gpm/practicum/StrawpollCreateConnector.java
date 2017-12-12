@@ -21,10 +21,12 @@ public class StrawpollCreateConnector extends RestConnectorBase {
         ClientResponse theResponse = aResource.accept("application/json")
                 .post(ClientResponse.class, theInput.toString());
 
-        final JSONObject theContent = new JSONObject(theResponse.getEntity(String.class));
-        int theId = theContent.getInt("id");
+        System.out.println(theResponse.getEntity(String.class));
 
-        getDelegateExecution().setVariable("strawpollId", theId);
+        //final JSONObject theContent = new JSONObject(theResponse.getEntity(String.class));
+        //int theId = theContent.getInt("id");
+
+        //getDelegateExecution().setVariable("strawpollId", theId);
         return theResponse;
     }
 

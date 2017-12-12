@@ -5,20 +5,25 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
+@Deprecated
 public class RestConnector implements JavaDelegate {
 
 
     @Override
-    public void execute(DelegateExecution delegateExecution) throws Exception {
-        String theUrl = (String) delegateExecution.getVariable("url");
-        Map<String, String> theParameters = (Map<String, String>) delegateExecution.getVariable("parameters");
-        String theMethod = (String) delegateExecution.getVariable("method");
+    public void execute(DelegateExecution aDelegateExecution) throws Exception {
+        String theUrl = (String) aDelegateExecution.getVariable("url");
+        Map<String, String> theParameters = (Map<String, String>) aDelegateExecution.getVariable("parameters");
+        Map<String, String> theResults = (Map<String, String>) aDelegateExecution.getVariable("results");
+        String theMethod = (String) aDelegateExecution.getVariable("method");
         try {
             Client client = Client.create();
 
@@ -27,31 +32,52 @@ public class RestConnector implements JavaDelegate {
             WebResource webResource = client
                     .resource(theUrl);
 
-            ClientResponse response = null;
+            ClientResponse theResponse = null;
 
             if ("get".equalsIgnoreCase(theMethod)) {
-                response = webResource.accept("application/json")
+                theResponse = webResource.accept("application/json")
                         .get(ClientResponse.class);
             } else if ("post".equalsIgnoreCase(theMethod)) {
-                response = webResource.accept("application/json")
+                theResponse = webResource.accept("application/json")
                         .post(ClientResponse.class);
             } else if ("put".equalsIgnoreCase(theMethod)) {
-                response = webResource.accept("application/json")
+                theResponse = webResource.accept("application/json")
                         .put(ClientResponse.class);
             } else {
                 throw new IllegalStateException("Provided Method " + theMethod + " is not supported (yet).");
             }
 
-
-            if (response.getStatus() != 200) {
+            if (theResponse.getStatus() != 200) {
                 throw new RuntimeException("Failed : HTTP error code : "
-                        + response.getStatus());
+                        + theResponse.getStatus());
             }
+
+            extractAndSetResults(aDelegateExecution, theResults, theResponse);
 
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
+    }
+
+    private void extractAndSetResults(DelegateExecution aDelegateExecution, Map<String, String> someResults, ClientResponse aResponse) {
+        if (someResults == null || someResults != null && someResults.isEmpty()) {
+            return;
+        }
+
+        String theResult = aResponse.getEntity(String.class);
+
+        JSONObject theJsonObject = new JSONObject(theResult);
+        Set<String> theKeySet = someResults.keySet();
+
+        for (String eachKey : theKeySet) {
+            String theJsonValue = theJsonObject.getString(eachKey);
+            if (theJsonValue != null) {
+                someResults.put(eachKey, theJsonValue);
+            }
+        }
+
+        aDelegateExecution.setVariable("results", someResults);
     }
 
     private String createUrlWithParams(String anUrl, Map<String, String> someParameters) throws UnsupportedEncodingException {

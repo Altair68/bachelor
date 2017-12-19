@@ -17,6 +17,6 @@ public class NoteKolloquiumPutConnector extends RestConnectorBase {
     protected String getUrl() {
         return String.format("http://localhost:8000/insertColl?student_id=%s&grade=%s",
                 getDelegateExecution().getVariable("StudentId"),
-                getDelegateExecution().getVariable("NoteKolloquium"));
+                ((String) getDelegateExecution().getVariable("NoteKolloquium")).substring(1));
     }
 }

@@ -19,6 +19,6 @@ public class NoteBachelorarbeitPutConnector extends RestConnectorBase {
     protected String getUrl() {
         return String.format("http://localhost:8000/insertBach?student_id=%s&grade=%s",
                 getDelegateExecution().getVariable("StudentId"),
-                getDelegateExecution().getVariable("NoteBachelorarbeit"));
+                ((String) getDelegateExecution().getVariable("NoteBachelorarbeit")).substring(1));
     }
 }

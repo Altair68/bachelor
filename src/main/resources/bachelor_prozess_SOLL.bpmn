@@ -63,7 +63,7 @@
         <bpmn:childLaneSet xsi:type="bpmn:tLaneSet" />
       </bpmn:lane>
     </bpmn:laneSet>
-    <bpmn:startEvent id="StartEvent_Bachelor" name="Student will Bachelorarbeit schreiben" camunda:initiator="starter">
+    <bpmn:startEvent id="StartEvent_Bachelor" name="Student will Bachelorarbeit schreiben" camunda:formKey="embedded:app:forms/start-form.html" camunda:initiator="starter">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="StudentId" label="Student-ID" type="long" />

@@ -1,17 +1,53 @@
-<strong>Here you would put the actual form to start the process</strong>
-
-<p>
-  You can use this form through Camunda Tasklist
-  by setting the formKey of a BPMN Start Event to:
-  <code>embedded:app:forms/start-form.html</code>
-</p>
+<strong>Bachelorarbeit</strong>
 
 <form class="form-horizontal">
   <div class="control-group">
-    <label class="control-label">Your Name</label>
     <div class="controls">
-      <input type="text" 
-             cam-variable-name="name"
+      <label class="control-label">Student-ID</label>
+      <input type="text"
+             cam-variable-name="StudentId"
+             cam-variable-type="long"
+             required
+             class="form-control" />
+      <label class="control-label">Thema</label>
+      <input type="text"
+             cam-variable-name="Thema"
+             cam-variable-type="String"
+             required
+             class="form-control" />
+      <label class="control-label">Betreuer</label>
+      <input type="text"
+             cam-variable-name="Professor"
+             cam-variable-type="String"
+             required
+             class="form-control" />
+      <label class="control-label">E-Mail Student</label>
+      <input type="text"
+             cam-variable-name="EmailStudent"
+             cam-variable-type="String"
+             required
+             class="form-control" />
+      <label class="control-label">E-Mail Professor</label>
+      <input type="text"
+             cam-variable-name="EmailProf"
+             cam-variable-type="String"
+             required
+             class="form-control" />
+      <label class="control-label">E-Mail Versandadresse</label>
+      <input type="text"
+             cam-variable-name="EmailSenderAdress"
+             cam-variable-type="String"
+             required
+             class="form-control" />
+      <label class="control-label">E-Mail Versandadresse</label>
+      <input type="text"
+             cam-variable-name="EmailSenderAdress"
+             cam-variable-type="String"
+             required
+             class="form-control" />
+      <label class="control-label">E-Mail Versandpasswort</label>
+      <input type="text"
+             cam-variable-name="EmailSenderPassword"
              cam-variable-type="String"
              required
              class="form-control" />

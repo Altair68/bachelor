@@ -19,7 +19,7 @@ public class FinalGradeGetConnector extends RestConnectorBase {
 
     @Override
     protected String getUrl() {
-        return String.format("http://localhost:8000/insertBach?student_id=%s",
+        return String.format("http://localhost:8000/finalGrade?student_id=%s",
                 getDelegateExecution().getVariable("StudentId"));
     }
 }

@@ -65,16 +65,7 @@
     </bpmn:laneSet>
     <bpmn:startEvent id="StartEvent_Bachelor" name="Student will Bachelorarbeit schreiben" camunda:formKey="embedded:app:forms/start-form.html" camunda:initiator="starter">
       <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="StudentId" label="Student-ID" type="long" />
-          <camunda:formField id="Thema" label="Thema" type="string" />
-          <camunda:formField id="Professor" label="Betreuer" type="string" />
-          <camunda:formField id="EmailStudent" label="Email Student" type="string" defaultValue="HubertHutauf@gmail.com" />
-          <camunda:formField id="EmailProf" label="Email Professor" type="string" defaultValue="HubertHutauf@gmail.com" />
-          <camunda:formField id="EmailSenderAdress" label="Email Versandadresse" type="string" defaultValue="HubertHutauf@gmail.com" />
-          <camunda:formField id="EmailSenderPassword" label="Email Versandpasswort" type="string" />
-          <camunda:formField id="TestMode" label="Test-Modus" type="boolean" defaultValue="${true}" />
-        </camunda:formData>
+        <camunda:formData />
       </bpmn:extensionElements>
       <bpmn:outgoing>SequenceFlow_11wr0yv</bpmn:outgoing>
     </bpmn:startEvent>

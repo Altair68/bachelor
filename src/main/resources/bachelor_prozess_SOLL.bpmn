@@ -376,8 +376,32 @@ childElement("isApprovedReturn").textContent()}]]></camunda:outputParameter>
     <bpmn:userTask id="Task_1b1tobr" name="Bewertung durchführen" camunda:candidateGroups="Professoren">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="NoteBachelorarbeit" label="Note Bachelorarbeit" type="long" />
-          <camunda:formField id="NoteKolloquium" label="Note Kolloquium" type="long" />
+          <camunda:formField id="NoteBachelorarbeit" label="Note Bachelorarbeit" type="enum">
+            <camunda:value id="n10" name="1.0" />
+            <camunda:value id="n13" name="1.3" />
+            <camunda:value id="n17" name="1.7" />
+            <camunda:value id="n20" name="2.0" />
+            <camunda:value id="n23" name="2.3" />
+            <camunda:value id="n27" name="2.7" />
+            <camunda:value id="n30" name="3.0" />
+            <camunda:value id="n33" name="3.3" />
+            <camunda:value id="n37" name="3.7" />
+            <camunda:value id="n40" name="4.0" />
+            <camunda:value id="n50" name="5.0" />
+          </camunda:formField>
+          <camunda:formField id="NoteKolloquium" label="Note Kolloquium" type="enum">
+            <camunda:value id="n10" name="1.0" />
+            <camunda:value id="n13" name="1.3" />
+            <camunda:value id="n17" name="1.7" />
+            <camunda:value id="n20" name="2.0" />
+            <camunda:value id="n23" name="2.3" />
+            <camunda:value id="n27" name="2.7" />
+            <camunda:value id="n30" name="3.0" />
+            <camunda:value id="n33" name="3.3" />
+            <camunda:value id="n37" name="3.7" />
+            <camunda:value id="n40" name="4.0" />
+            <camunda:value id="n50" name="5.0" />
+          </camunda:formField>
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1ivh1xu</bpmn:incoming>

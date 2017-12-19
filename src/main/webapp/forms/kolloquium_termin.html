@@ -1,0 +1,19 @@
+<strong>Termin für das Kolloquium</strong>
+
+<form class="form-horizontal">
+  <div class="control-group">
+    <div class="controls">
+      <label class="control-label">Datum</label>
+      <input
+             cam-variable-name="pollTitle"
+             cam-variable-type="Date"
+             required
+             class="datepicker"
+             data-date-format="mm/dd/yyyy"/>
+    </div>
+  </div>
+
+  <script cam-script type="text/form-script">
+      $('.datepicker').datepicker();
+  </script>
+</form>

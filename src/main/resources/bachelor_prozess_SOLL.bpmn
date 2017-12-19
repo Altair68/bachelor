@@ -63,7 +63,7 @@
         <bpmn:childLaneSet xsi:type="bpmn:tLaneSet" />
       </bpmn:lane>
     </bpmn:laneSet>
-    <bpmn:startEvent id="StartEvent_Bachelor" name="Student will Bachelorarbeit schreiben" camunda:formKey="embedded:app:forms/start-form.html" camunda:initiator="starter">
+    <bpmn:startEvent id="StartEvent_Bachelor" name="Student will Bachelorarbeit schreiben" camunda:formKey="h" camunda:initiator="starter">
       <bpmn:extensionElements>
         <camunda:formData />
       </bpmn:extensionElements>
@@ -90,20 +90,16 @@
       <bpmn:incoming>SequenceFlow_1wwx98k</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1grvtmk</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:userTask id="Task_0rwff2j" name="Zeit überprüfen" camunda:assignee="${starter}" camunda:candidateGroups="Studenten">
+    <bpmn:userTask id="Task_0rwff2j" name="Zeit überprüfen" camunda:formKey="embedded:app:forms/verlaengerung_erforderlich.html" camunda:assignee="${starter}" camunda:candidateGroups="Studenten">
       <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="VerlaengerungErforderlich" label="Verlängerung benötigt?" type="boolean" />
-        </camunda:formData>
+        <camunda:formData />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1eqc333</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1jwt2ou</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="Task_Thema_pruefen" name="Themenvorschlag prüfen" camunda:candidateGroups="Professoren">
+    <bpmn:userTask id="Task_Thema_pruefen" name="Themenvorschlag prüfen" camunda:formKey="embedded:app:forms/thema_pruefen.html" camunda:candidateGroups="Professoren">
       <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="ThemaOk" label="Thema OK?" type="boolean" />
-        </camunda:formData>
+        <camunda:formData />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_09wfcbr</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1iqxego</bpmn:outgoing>
@@ -125,11 +121,9 @@
     <bpmn:endEvent id="EndEvent_0ny5k9v" name="Bachelorarbeit darf nicht geschrieben werden">
       <bpmn:incoming>SequenceFlow_0mvnghe</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:userTask id="Task_10iqv5g" name="Antrag prüfen" camunda:candidateGroups="Pruefungsamt">
+    <bpmn:userTask id="Task_10iqv5g" name="Antrag prüfen" camunda:formKey="embedded:app:forms/verlaengerung_pruefen.html" camunda:candidateGroups="Pruefungsamt">
       <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="VerlaengerungOk" label="Verlängerung genehmigen?" type="boolean" />
-        </camunda:formData>
+        <camunda:formData />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_16qjlcr</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_16f7nlw</bpmn:outgoing>
@@ -144,11 +138,9 @@
       <bpmn:incoming>SequenceFlow_0nlqhc3</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1co8ck3</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:userTask id="Task_0qe6qii" name="Bachelorarbeit bewerten" camunda:candidateGroups="Professoren">
+    <bpmn:userTask id="Task_0qe6qii" name="Bachelorarbeit bewerten" camunda:formKey="embedded:app:forms/bachelorarbeit_bestanden.html" camunda:candidateGroups="Professoren">
       <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="BachelorarbeitBestanden" label="Bachelorarbeit Bestanden?" type="boolean" />
-        </camunda:formData>
+        <camunda:formData />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0ns2vjm</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_087bbgp</bpmn:outgoing>
@@ -158,11 +150,9 @@
       <bpmn:outgoing>SequenceFlow_1oas55d</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_00ssyye</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:userTask id="Task_1oeo12u" name="Abgabebedingungen prüfen" camunda:candidateGroups="Pruefungsamt">
+    <bpmn:userTask id="Task_1oeo12u" name="Abgabebedingungen prüfen" camunda:formKey="embedded:app:forms/abgabe_ok.html" camunda:candidateGroups="Pruefungsamt">
       <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="AbgabeOk" label="Wurde die Bachelorarbeit abgegeben?" type="boolean" />
-        </camunda:formData>
+        <camunda:formData />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1t0eqlz</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_08ba2eb</bpmn:outgoing>
@@ -322,11 +312,9 @@ childElement("isApprovedReturn").textContent()}]]></camunda:outputParameter>
     <bpmn:endEvent id="EndEvent_Bachelor_nicht_bestanden" name="Bachelorarbeit nicht bestanden">
       <bpmn:incoming>SequenceFlow_1ee5kj6</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:userTask id="Task_1mmprkm" name="Kolloquiumstermine festlegen" camunda:candidateGroups="Professoren">
+    <bpmn:userTask id="Task_1mmprkm" name="Kolloquiumstermine festlegen" camunda:formKey="embedded:app:forms/kolloquium_termin.html" camunda:candidateGroups="Professoren">
       <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="pollTitle" label="Datum" type="date" />
-        </camunda:formData>
+        <camunda:formData />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0x2r906</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_1lco0l8</bpmn:incoming>
@@ -366,7 +354,7 @@ childElement("isApprovedReturn").textContent()}]]></camunda:outputParameter>
       <bpmn:incoming>SequenceFlow_1v9wk3s</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1ivh1xu</bpmn:outgoing>
     </bpmn:manualTask>
-    <bpmn:userTask id="Task_1b1tobr" name="Bewertung durchführen" camunda:candidateGroups="Professoren">
+    <bpmn:userTask id="Task_1b1tobr" name="Bewertung durchführen" camunda:formKey="embedded:app:forms/benotung.html" camunda:candidateGroups="Professoren">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="NoteBachelorarbeit" label="Note Bachelorarbeit" type="enum">

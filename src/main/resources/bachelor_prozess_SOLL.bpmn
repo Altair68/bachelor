@@ -63,7 +63,7 @@
         <bpmn:childLaneSet xsi:type="bpmn:tLaneSet" />
       </bpmn:lane>
     </bpmn:laneSet>
-    <bpmn:startEvent id="StartEvent_Bachelor" name="Student will Bachelorarbeit schreiben" camunda:formKey="h" camunda:initiator="starter">
+    <bpmn:startEvent id="StartEvent_Bachelor" name="Student will Bachelorarbeit schreiben" camunda:formKey="embedded:app:forms/start-form.html" camunda:initiator="starter">
       <bpmn:extensionElements>
         <camunda:formData />
       </bpmn:extensionElements>
@@ -1096,8 +1096,8 @@ childElement("isApprovedReturn").textContent()}]]></camunda:outputParameter>
         <dc:Bounds x="279" y="401" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataOutputAssociation_1que1l3_di" bpmnElement="DataOutputAssociation_1que1l3">
-        <di:waypoint xsi:type="dc:Point" x="3749" y="834" />
-        <di:waypoint xsi:type="dc:Point" x="3781" y="1506" />
+        <di:waypoint xsi:type="dc:Point" x="3747" y="834" />
+        <di:waypoint xsi:type="dc:Point" x="3747" y="1506" />
         <di:waypoint xsi:type="dc:Point" x="651" y="1506" />
         <di:waypoint xsi:type="dc:Point" x="651" y="1496" />
       </bpmndi:BPMNEdge>

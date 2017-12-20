@@ -2,18 +2,18 @@ package de.fhaachen.gpm.practicum;
 
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 public class FinalGradeGetConnector extends RestConnectorBase {
     @Override
     protected ClientResponse execMethod(WebResource aResource) {
+        LOGGER.info("Load final grade");
         ClientResponse theResponse = aResource.accept("application/json")
                 .get(ClientResponse.class);
 
         final String theResult = theResponse.getEntity(String.class);
+        double finalGrade = Double.parseDouble(theResult.replace("\"", "").trim());
 
-        getDelegateExecution().setVariable("FinalGrade", theResult);
+        getDelegateExecution().setVariable("FinalGrade", finalGrade);
         return theResponse;
     }
 

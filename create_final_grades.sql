@@ -4,7 +4,7 @@ insert into subject values (22, 'Bachelorarbeit', 0)
 insert into subject values (23, 'Kolloquium', 0)
 
 select * from subject
-select * from written_exam
+select * from written_exam where student_id = 3
 
 insert into written_exam values (56, 22, '2.3', 3)
 insert into written_exam values (57, 23, '2.0', 3)
@@ -27,6 +27,11 @@ group by e.student_id, s.name
 ) t
 group by student_id
 
+
+
+ALTER TABLE written_exam modify column grade enum('1.0','1.3','1.7','2.0','2.3','2.7','3.0','3.3','3.7','4.0','5.0');
+
+insert into written_exam values (99, 23, '5.0', 3)
 
 
 select *

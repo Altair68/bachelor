@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="definitions_1oetf6n" name="definitions" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="studiumBestanden" name="Studium Bestanden">
+    <decisionTable id="decisionTable">
+      <input id="input1" label="Note Kolloquium" camunda:inputVariable="">
+        <inputExpression id="inputExpression1" typeRef="string">        <text>NoteKolloquium</text>
+</inputExpression>
+        <inputValues id="UnaryTests_0g9251a">        <text><![CDATA["n5.0"]]></text>
+</inputValues>
+      </input>
+      <output id="output1" label="Kolloquium Bestanden?" name="kolloquiumBestanden" typeRef="boolean" />
+      <rule id="row-845738472-3">
+        <inputEntry id="UnaryTests_0cs9dqs">        <text><![CDATA["n5.0"]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_14qqey0">        <text>false</text>
+</outputEntry>
+      </rule>
+      <rule id="row-845738472-4">
+        <inputEntry id="UnaryTests_1b1oazh">        <text><![CDATA[not("n5.0")]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_086ibyb">        <text>true</text>
+</outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

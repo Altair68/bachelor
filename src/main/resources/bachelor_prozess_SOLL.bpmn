@@ -35,10 +35,11 @@
         <bpmn:flowNodeRef>Task_1gh86bx</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_1m69jkh</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_1b1tobr</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>ExclusiveGateway_1k85wl3</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_10vmo8o</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_0foly2j</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_0l7y5ph</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ExclusiveGateway_1k85wl3</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Auszeichnung_pruefen</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_1yo67ve" name="Prüfungsamt">
         <bpmn:flowNodeRef>ExclusiveGateway_0bffdtb</bpmn:flowNodeRef>
@@ -414,8 +415,25 @@ childElement("isApprovedReturn").textContent()}]]></camunda:outputParameter>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="SequenceFlow_1wg17nk" sourceRef="Task_1b1tobr" targetRef="Task_10vmo8o" />
     <bpmn:sequenceFlow id="SequenceFlow_0ymkg25" sourceRef="Task_10vmo8o" targetRef="Task_0foly2j" />
-    <bpmn:exclusiveGateway id="ExclusiveGateway_1k85wl3" name="Bachelor bestanden?" default="SequenceFlow_0tv0pgh">
-      <bpmn:incoming>SequenceFlow_168w65x</bpmn:incoming>
+    <bpmn:sequenceFlow id="SequenceFlow_168w65x" sourceRef="Task_0l7y5ph" targetRef="Task_Auszeichnung_pruefen" />
+    <bpmn:sequenceFlow id="SequenceFlow_13csbiz" sourceRef="Task_0foly2j" targetRef="Task_0l7y5ph" />
+    <bpmn:serviceTask id="Task_10vmo8o" name="Bachelorarbeit abspeichern" camunda:class="de.fhaachen.gpm.practicum.NoteBachelorarbeitPutConnector">
+      <bpmn:incoming>SequenceFlow_1wg17nk</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0ymkg25</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1que1l3">
+        <bpmn:targetRef>DataStoreReference_1hypgyq</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_0foly2j" name="Kolloquium abspeichern" camunda:class="de.fhaachen.gpm.practicum.NoteKolloquiumPutConnector">
+      <bpmn:incoming>SequenceFlow_0ymkg25</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_13csbiz</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_0l7y5ph" name="Gesamtnote berechnen" camunda:class="de.fhaachen.gpm.practicum.FinalGradeGetConnector">
+      <bpmn:incoming>SequenceFlow_13csbiz</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_168w65x</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1k85wl3" name="Auszeichnung verdient?" default="SequenceFlow_0tv0pgh">
+      <bpmn:incoming>SequenceFlow_1cjs9ao</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_19bdldn</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_0tv0pgh</bpmn:outgoing>
     </bpmn:exclusiveGateway>
@@ -439,31 +457,19 @@ childElement("isApprovedReturn").textContent()}]]></camunda:outputParameter>
       <bpmn:incoming>SequenceFlow_03n39ke</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0c90jfs</bpmn:outgoing>
     </bpmn:manualTask>
-    <bpmn:sequenceFlow id="SequenceFlow_168w65x" sourceRef="Task_0l7y5ph" targetRef="ExclusiveGateway_1k85wl3" />
-    <bpmn:sequenceFlow id="SequenceFlow_19bdldn" name="Gesamtnote &#60;= 1,3" sourceRef="ExclusiveGateway_1k85wl3" targetRef="Task_0rfkozs">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[${NoteBachelorarbeit == "1.0"}]]></bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="SequenceFlow_19bdldn" name="Ja" sourceRef="ExclusiveGateway_1k85wl3" targetRef="Task_0rfkozs">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${auszeichnungErstellen == true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_0tv0pgh" name="1,3 &#60; Gesamtnote" sourceRef="ExclusiveGateway_1k85wl3" targetRef="ExclusiveGateway_0innemi" />
+    <bpmn:sequenceFlow id="SequenceFlow_0tv0pgh" name="Nein" sourceRef="ExclusiveGateway_1k85wl3" targetRef="ExclusiveGateway_0innemi" />
     <bpmn:sequenceFlow id="SequenceFlow_0c90jfs" sourceRef="Task_0anh99c" targetRef="EndEvent_Bachelor_abgeschlossen" />
     <bpmn:sequenceFlow id="SequenceFlow_0g4wzu1" sourceRef="Task_0rfkozs" targetRef="ExclusiveGateway_0innemi" />
     <bpmn:sequenceFlow id="SequenceFlow_1m5rait" sourceRef="ExclusiveGateway_0innemi" targetRef="Task_1fhoewo" />
     <bpmn:sequenceFlow id="SequenceFlow_03n39ke" sourceRef="Task_1fhoewo" targetRef="Task_0anh99c" />
-    <bpmn:sequenceFlow id="SequenceFlow_13csbiz" sourceRef="Task_0foly2j" targetRef="Task_0l7y5ph" />
-    <bpmn:serviceTask id="Task_10vmo8o" name="Bachelorarbeit abspeichern" camunda:class="de.fhaachen.gpm.practicum.NoteBachelorarbeitPutConnector">
-      <bpmn:incoming>SequenceFlow_1wg17nk</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0ymkg25</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_1que1l3">
-        <bpmn:targetRef>DataStoreReference_1hypgyq</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="Task_0foly2j" name="Kolloquium abspeichern" camunda:class="de.fhaachen.gpm.practicum.NoteKolloquiumPutConnector">
-      <bpmn:incoming>SequenceFlow_0ymkg25</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_13csbiz</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="Task_0l7y5ph" name="Gesamtnote berechnen" camunda:class="de.fhaachen.gpm.practicum.FinalGradeGetConnector">
-      <bpmn:incoming>SequenceFlow_13csbiz</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_168w65x</bpmn:outgoing>
-    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1cjs9ao" sourceRef="Task_Auszeichnung_pruefen" targetRef="ExclusiveGateway_1k85wl3" />
+    <bpmn:businessRuleTask id="Task_Auszeichnung_pruefen" name="Auszeichnung prüfen" camunda:resultVariable="auszeichnungErstellen" camunda:decisionRef="AuszeichnungErforderlich" camunda:decisionRefBinding="deployment" camunda:mapDecisionResult="singleEntry">
+      <bpmn:incoming>SequenceFlow_168w65x</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1cjs9ao</bpmn:outgoing>
+    </bpmn:businessRuleTask>
     <bpmn:textAnnotation id="TextAnnotation_0qozkch">    <bpmn:text>Eingabe der persönlichen Daten und des Themas der Bachelorarbeit</bpmn:text>
 </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_1bqi5pz">    <bpmn:text>Der Student bestätigt in einem Formular, dass die Bachelorarbeit abgegeben wurde.</bpmn:text>
@@ -481,16 +487,16 @@ childElement("isApprovedReturn").textContent()}]]></camunda:outputParameter>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0mv2qeo">
       <bpmndi:BPMNShape id="Participant_0se8kgq_di" bpmnElement="Participant_0se8kgq">
-        <dc:Bounds x="93" y="75" width="4561" height="1485" />
+        <dc:Bounds x="93" y="75" width="4749" height="1485" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_1qie79t_di" bpmnElement="Lane_1qie79t">
-        <dc:Bounds x="123" y="75" width="4531" height="532" />
+        <dc:Bounds x="123" y="75" width="4719" height="532" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_0m74chw_di" bpmnElement="Lane_0m74chw">
-        <dc:Bounds x="123" y="607" width="4531" height="381" />
+        <dc:Bounds x="123" y="607" width="4719" height="381" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_1yo67ve_di" bpmnElement="Lane_1yo67ve">
-        <dc:Bounds x="123" y="988" width="4531" height="572" />
+        <dc:Bounds x="123" y="988" width="4719" height="572" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="StartEvent_0d8h6qe_di" bpmnElement="StartEvent_Bachelor">
         <dc:Bounds x="197.78206364512994" y="244.80231436837028" width="36" height="36" />
@@ -642,28 +648,28 @@ childElement("isApprovedReturn").textContent()}]]></camunda:outputParameter>
         <dc:Bounds x="3550" y="223" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_03n39ke_di" bpmnElement="SequenceFlow_03n39ke">
-        <di:waypoint xsi:type="dc:Point" x="4384" y="1344" />
-        <di:waypoint xsi:type="dc:Point" x="4420" y="1344" />
-        <di:waypoint xsi:type="dc:Point" x="4420" y="1344" />
-        <di:waypoint xsi:type="dc:Point" x="4456" y="1344" />
+        <di:waypoint xsi:type="dc:Point" x="4572" y="1344" />
+        <di:waypoint xsi:type="dc:Point" x="4608" y="1344" />
+        <di:waypoint xsi:type="dc:Point" x="4608" y="1344" />
+        <di:waypoint xsi:type="dc:Point" x="4644" y="1344" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="4390" y="1338" width="90" height="12" />
+          <dc:Bounds x="4578" y="1338" width="90" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ManualTask_0qd9gn2_di" bpmnElement="Task_1fhoewo">
-        <dc:Bounds x="4284" y="1304" width="100" height="80" />
+        <dc:Bounds x="4472" y="1304" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_02bebts_di" bpmnElement="EndEvent_Bachelor_abgeschlossen">
-        <dc:Bounds x="4488" y="285" width="36" height="36" />
+        <dc:Bounds x="4676" y="285" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="4469" y="251" width="74" height="24" />
+          <dc:Bounds x="4657" y="251" width="74" height="24" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0c90jfs_di" bpmnElement="SequenceFlow_0c90jfs">
-        <di:waypoint xsi:type="dc:Point" x="4506" y="1304" />
-        <di:waypoint xsi:type="dc:Point" x="4506" y="321" />
+        <di:waypoint xsi:type="dc:Point" x="4694" y="1304" />
+        <di:waypoint xsi:type="dc:Point" x="4694" y="321" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="4476" y="807" width="90" height="12" />
+          <dc:Bounds x="4664" y="807" width="90" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_11wr0yv_di" bpmnElement="SequenceFlow_11wr0yv">
@@ -931,47 +937,47 @@ childElement("isApprovedReturn").textContent()}]]></camunda:outputParameter>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ExclusiveGateway_1k85wl3_di" bpmnElement="ExclusiveGateway_1k85wl3" isMarkerVisible="true">
-        <dc:Bounds x="4145" y="769" width="50" height="50" />
+        <dc:Bounds x="4333" y="769" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="4141" y="823" width="58" height="24" />
+          <dc:Bounds x="4329" y="729" width="58" height="24" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_19bdldn_di" bpmnElement="SequenceFlow_19bdldn">
-        <di:waypoint xsi:type="dc:Point" x="4170" y="819" />
-        <di:waypoint xsi:type="dc:Point" x="4170" y="1193" />
+        <di:waypoint xsi:type="dc:Point" x="4358" y="819" />
+        <di:waypoint xsi:type="dc:Point" x="4358" y="1193" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="4081" y="882" width="73" height="24" />
+          <dc:Bounds x="4269" y="882" width="73" height="24" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ManualTask_06wrw36_di" bpmnElement="Task_0rfkozs">
-        <dc:Bounds x="4120" y="1193" width="100" height="80" />
+        <dc:Bounds x="4308" y="1193" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ExclusiveGateway_0innemi_di" bpmnElement="ExclusiveGateway_0innemi" isMarkerVisible="true">
-        <dc:Bounds x="4309" y="1208" width="50" height="50" />
+        <dc:Bounds x="4497" y="1208" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="4289" y="1262" width="90" height="12" />
+          <dc:Bounds x="4477" y="1262" width="90" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0g4wzu1_di" bpmnElement="SequenceFlow_0g4wzu1">
-        <di:waypoint xsi:type="dc:Point" x="4220" y="1233" />
-        <di:waypoint xsi:type="dc:Point" x="4309" y="1233" />
+        <di:waypoint xsi:type="dc:Point" x="4408" y="1233" />
+        <di:waypoint xsi:type="dc:Point" x="4497" y="1233" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="4220" y="1212" width="90" height="12" />
+          <dc:Bounds x="4408" y="1212" width="90" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1m5rait_di" bpmnElement="SequenceFlow_1m5rait">
-        <di:waypoint xsi:type="dc:Point" x="4334" y="1258" />
-        <di:waypoint xsi:type="dc:Point" x="4334" y="1304" />
+        <di:waypoint xsi:type="dc:Point" x="4522" y="1258" />
+        <di:waypoint xsi:type="dc:Point" x="4522" y="1304" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="4304" y="1275" width="90" height="12" />
+          <dc:Bounds x="4492" y="1275" width="90" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0tv0pgh_di" bpmnElement="SequenceFlow_0tv0pgh">
-        <di:waypoint xsi:type="dc:Point" x="4195" y="794" />
-        <di:waypoint xsi:type="dc:Point" x="4334" y="794" />
-        <di:waypoint xsi:type="dc:Point" x="4334" y="1208" />
+        <di:waypoint xsi:type="dc:Point" x="4383" y="794" />
+        <di:waypoint xsi:type="dc:Point" x="4522" y="794" />
+        <di:waypoint xsi:type="dc:Point" x="4522" y="1208" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="4230" y="767" width="85" height="12" />
+          <dc:Bounds x="4418" y="767" width="85" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_1ambw29_di" bpmnElement="DataOutputAssociation_1ambw29">
@@ -993,7 +999,7 @@ childElement("isApprovedReturn").textContent()}]]></camunda:outputParameter>
         <dc:Bounds x="2588" y="630" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ManualTask_03jvrfv_di" bpmnElement="Task_0anh99c">
-        <dc:Bounds x="4456" y="1304" width="100" height="80" />
+        <dc:Bounds x="4644" y="1304" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataOutputAssociation_0zyub0o_di" bpmnElement="DataOutputAssociation_0zyub0o">
         <di:waypoint xsi:type="dc:Point" x="768" y="1273" />
@@ -1117,9 +1123,9 @@ childElement("isApprovedReturn").textContent()}]]></camunda:outputParameter>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_168w65x_di" bpmnElement="SequenceFlow_168w65x">
         <di:waypoint xsi:type="dc:Point" x="4084" y="794" />
-        <di:waypoint xsi:type="dc:Point" x="4145" y="794" />
+        <di:waypoint xsi:type="dc:Point" x="4154" y="794" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="4069.5" y="773" width="90" height="12" />
+          <dc:Bounds x="4074" y="773" width="90" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_0qiiutw_di" bpmnElement="Task_10vmo8o">
@@ -1137,6 +1143,16 @@ childElement("isApprovedReturn").textContent()}]]></camunda:outputParameter>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ServiceTask_12wp1gy_di" bpmnElement="Task_0l7y5ph">
         <dc:Bounds x="3984" y="754" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1cjs9ao_di" bpmnElement="SequenceFlow_1cjs9ao">
+        <di:waypoint xsi:type="dc:Point" x="4254" y="794" />
+        <di:waypoint xsi:type="dc:Point" x="4333" y="794" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4293.5" y="773" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="BusinessRuleTask_059m566_di" bpmnElement="Task_Auszeichnung_pruefen">
+        <dc:Bounds x="4154" y="754" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

@@ -6,6 +6,7 @@ import com.sun.jersey.api.client.WebResource;
 public class StudentGetConnector extends RestConnectorBase {
     @Override
     protected ClientResponse execMethod(WebResource aResource) {
+        LOGGER.info("Get Student Info");
         ClientResponse theResponse = aResource.accept("application/json")
                 .get(ClientResponse.class);
 

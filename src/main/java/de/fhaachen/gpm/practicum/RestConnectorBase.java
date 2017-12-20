@@ -25,6 +25,7 @@ public abstract class RestConnectorBase implements JavaDelegate {
             WebResource webResource = client
                     .resource(theUrl);
 
+            LOGGER.info("Exec REST Method; URL: " + theUrl);
             ClientResponse response = execMethod(webResource);
 
             if (response.getStatus() < 200 || response.getStatus() >= 300) {

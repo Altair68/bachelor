@@ -9,6 +9,7 @@ public class NoteBachelorarbeitPutConnector extends RestConnectorBase {
 
     @Override
     protected ClientResponse execMethod(WebResource aResource) {
+        LOGGER.info("Save bachelor thesis grade");
         ClientResponse theResponse = aResource.accept("application/json")
                 .put(ClientResponse.class);
 

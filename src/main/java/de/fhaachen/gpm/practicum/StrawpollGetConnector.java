@@ -8,6 +8,7 @@ import org.json.JSONObject;
 public class StrawpollGetConnector extends RestConnectorBase {
     @Override
     protected ClientResponse execMethod(WebResource aResource) {
+        LOGGER.info("Get Strawpoll Result");
         ClientResponse theResponse = aResource.accept("application/json")
                 .get(ClientResponse.class);
 

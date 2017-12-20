@@ -11,6 +11,7 @@ public class StrawpollCreateConnector extends RestConnectorBase {
     @Override
     protected ClientResponse execMethod(WebResource aResource) {
 
+        LOGGER.info("Create Strawpoll");
         StringBuilder theInput = new StringBuilder();
 
         theInput.append("{\"title\": \"");

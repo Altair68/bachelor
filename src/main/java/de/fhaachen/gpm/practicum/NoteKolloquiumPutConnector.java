@@ -7,6 +7,7 @@ public class NoteKolloquiumPutConnector extends RestConnectorBase {
 
     @Override
     protected ClientResponse execMethod(WebResource aResource) {
+        LOGGER.info("Save colloquium grade");
         ClientResponse theResponse = aResource.accept("application/json")
                 .put(ClientResponse.class);
 

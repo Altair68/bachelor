@@ -11,8 +11,11 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 public class MailDelegate implements JavaDelegate {
+    protected final Logger LOGGER = Logger.getLogger(RestConnectorBase.class.getName());
+
     public void execute(DelegateExecution execution) throws Exception {
         String emailSender = (String)execution.getVariable("EmailSenderAdress");
         String emailPassword = (String)execution.getVariable("EmailSenderPassword");
@@ -20,6 +23,13 @@ public class MailDelegate implements JavaDelegate {
         String body = (String)execution.getVariable("EmailBody");
         String receiver = (String)execution.getVariable("EmailReceiver");
         String cc = (String)execution.getVariable("EmailCC");
+        LOGGER.info("Send Mail");
+        LOGGER.info("emailSender: " + emailSender);
+        LOGGER.info("emailPassword: " + emailPassword);
+        LOGGER.info("subject: " + subject);
+        LOGGER.info("body: " + body);
+        LOGGER.info("receiver: " + receiver);
+        LOGGER.info("cc: " + cc);
         generateAndSendEmail(emailSender, emailPassword, subject, body, receiver, cc);
     }
 

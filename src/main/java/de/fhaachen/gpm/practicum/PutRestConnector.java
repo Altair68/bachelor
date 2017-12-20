@@ -6,6 +6,7 @@ import com.sun.jersey.api.client.WebResource;
 public class PutRestConnector extends RestConnectorBase {
     @Override
     protected ClientResponse execMethod(WebResource aResource) {
+        LOGGER.info("Save Thesis");
         ClientResponse theResponse = aResource.accept("application/json")
                 .put(ClientResponse.class);
 

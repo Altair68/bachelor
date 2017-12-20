@@ -6,6 +6,7 @@ import com.sun.jersey.api.client.WebResource;
 public class PostRestConnector extends RestConnectorBase {
     @Override
     protected ClientResponse execMethod(WebResource aResource) {
+        LOGGER.info("Change Thesis");
         return aResource.accept("application/json")
                 .post(ClientResponse.class);
     }

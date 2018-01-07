@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="definitions_168lr87" name="definitions" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="AuszeichnungErforderlich" name="Auszeichnung erforderlich">
+    <decisionTable id="decisionTable" hitPolicy="FIRST">
+      <input id="InputClause_18jhiid" label="" camunda:inputVariable="">
+        <inputExpression id="LiteralExpression_0s72ede" typeRef="string">        <text></text>
+</inputExpression>
+      </input>
+      <input id="input1" label="Gesamtnote" camunda:inputVariable="">
+        <inputExpression id="inputExpression1" typeRef="double">        <text>FinalGrade</text>
+</inputExpression>
+      </input>
+      <output id="output1" label="Auszeichnung erstellen?" name="auszeichnungErstellen" typeRef="long" />
+      <rule id="row-845738472-1">
+        <inputEntry id="UnaryTests_04x1475">        <text></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_0mnhm8p">        <text><![CDATA[<= 1.3]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_0qkcgjh">        <text>1</text>
+</outputEntry>
+      </rule>
+      <rule id="row-845738472-2">
+        <inputEntry id="UnaryTests_1xdpi4r">        <text></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_0henr7k">        <text><![CDATA[< 5]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_17nwcr4">        <text>2</text>
+</outputEntry>
+      </rule>
+      <rule id="row-77263896-1">
+        <inputEntry id="UnaryTests_00jvyb6">        <text></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_1901ki8">        <text>5</text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_0ylcqal">        <text>3</text>
+</outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

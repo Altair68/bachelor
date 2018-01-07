@@ -28,7 +28,6 @@
         <bpmn:flowNodeRef>EndEvent_Kein_Betreuer_gefunden</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_0qe6qii</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ExclusiveGateway_0supgov</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>SendTask_198sad8</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_Bachelorarbeit_abspeichern</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_1mmprkm</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_0w0qu9k</bpmn:flowNodeRef>
@@ -39,12 +38,12 @@
         <bpmn:flowNodeRef>Task_0l7y5ph</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_Auszeichnung_pruefen</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ExclusiveGateway_1k85wl3</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>SendTask_198sad8</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_1yo67ve" name="Prüfungsamt">
         <bpmn:flowNodeRef>ExclusiveGateway_0xkujts</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_0smylxq</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_Send_Mail_Zulassung</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Task_0rfkozs</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_10iqv5g</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_1oeo12u</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_07a6vnk</bpmn:flowNodeRef>
@@ -52,7 +51,6 @@
         <bpmn:flowNodeRef>Task_Zulassung_pruefen</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_Send_Mail_Keine_Zulassung</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_02ktrua</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Task_1fhoewo</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_0anh99c</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_0ufdr4c</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_0mvp434</bpmn:flowNodeRef>
@@ -65,6 +63,8 @@
         <bpmn:flowNodeRef>EndEvent_Abgabe_nicht_ok</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ExclusiveGateway_1379dvt</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ExclusiveGateway_0r3n993</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Urkunde_erstellen</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_1fhoewo</bpmn:flowNodeRef>
         <bpmn:childLaneSet xsi:type="bpmn:tLaneSet" />
       </bpmn:lane>
     </bpmn:laneSet>
@@ -180,10 +180,6 @@
     <bpmn:manualTask id="Task_0smylxq" name="Stakeholder informieren">
       <bpmn:incoming>SequenceFlow_1co8ck3</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1wwx98k</bpmn:outgoing>
-    </bpmn:manualTask>
-    <bpmn:manualTask id="SendTask_198sad8" name="Stakeholder benachrichtigen">
-      <bpmn:incoming>SequenceFlow_00ssyye</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0lx28c4</bpmn:outgoing>
     </bpmn:manualTask>
     <bpmn:serviceTask id="Task_Bachelorarbeit_abspeichern" name="Bachelorarbeit abspeichern" camunda:class="de.fhaachen.gpm.practicum.PutRestConnector">
       <bpmn:incoming>SequenceFlow_0qkxfh0</bpmn:incoming>
@@ -320,7 +316,7 @@
       <bpmn:outgoing>SequenceFlow_19bdldn</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_0tv0pgh</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="SequenceFlow_19bdldn" name="Ja" sourceRef="ExclusiveGateway_1k85wl3" targetRef="Task_0rfkozs">
+    <bpmn:sequenceFlow id="SequenceFlow_19bdldn" name="Ja" sourceRef="ExclusiveGateway_1k85wl3" targetRef="Urkunde_erstellen">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${auszeichnungErstellen == true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_0tv0pgh" name="Nein" sourceRef="ExclusiveGateway_1k85wl3" targetRef="ExclusiveGateway_0innemi" />
@@ -338,15 +334,11 @@
       <bpmn:incoming>SequenceFlow_0g4wzu1</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1m5rait</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="SequenceFlow_0g4wzu1" sourceRef="Task_0rfkozs" targetRef="ExclusiveGateway_0innemi" />
+    <bpmn:sequenceFlow id="SequenceFlow_0g4wzu1" sourceRef="Urkunde_erstellen" targetRef="ExclusiveGateway_0innemi" />
     <bpmn:sequenceFlow id="SequenceFlow_1m5rait" sourceRef="ExclusiveGateway_0innemi" targetRef="Task_Kolloquiumsnote_pruefen" />
     <bpmn:sequenceFlow id="SequenceFlow_17z7a9y" name="Ja" sourceRef="ExclusiveGateway_0supgov" targetRef="Task_1mmprkm">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${BachelorarbeitBestanden == true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:userTask id="Task_0rfkozs" name="Urkunde erstellen">
-      <bpmn:incoming>SequenceFlow_19bdldn</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0g4wzu1</bpmn:outgoing>
-    </bpmn:userTask>
     <bpmn:dataStoreReference id="DataStoreReference_1hypgyq" name="Datenbank" />
     <bpmn:exclusiveGateway id="ExclusiveGateway_0bffdtb" name="Zulassung erteilt?">
       <bpmn:incoming>SequenceFlow_195ryn6</bpmn:incoming>
@@ -442,10 +434,6 @@ childElement("isApprovedReturn").textContent()}]]></camunda:outputParameter>
       <bpmn:incoming>SequenceFlow_01msqc7</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_195ryn6</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:manualTask id="Task_1fhoewo" name="Zeugnis erstellen">
-      <bpmn:incoming>SequenceFlow_1bil21y</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_03n39ke</bpmn:outgoing>
-    </bpmn:manualTask>
     <bpmn:manualTask id="Task_0anh99c" name="Absolventenfeiereinladungen verschicken">
       <bpmn:incoming>SequenceFlow_03n39ke</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0c90jfs</bpmn:outgoing>
@@ -520,6 +508,42 @@ Gesamtnote: ${FinalGrade}
     <bpmn:sequenceFlow id="SequenceFlow_0hd8c0z" sourceRef="ExclusiveGateway_1379dvt" targetRef="Task_0mvp434" />
     <bpmn:sequenceFlow id="SequenceFlow_1vy3c34" sourceRef="Task_0ufdr4c" targetRef="ExclusiveGateway_0r3n993" />
     <bpmn:sequenceFlow id="SequenceFlow_15m87ya" sourceRef="Task_0mvp434" targetRef="ExclusiveGateway_0r3n993" />
+    <bpmn:sendTask id="SendTask_198sad8" name="Stakeholder benachrichtigen" camunda:class="de.fhaachen.gpm.practicum.MailDelegate">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="EmailSubject">Bachelorarbeit nicht bestanden</camunda:inputParameter>
+          <camunda:inputParameter name="EmailSubject">Sie haben die Bachelorarbeit nicht bestanden!</camunda:inputParameter>
+          <camunda:inputParameter name="EmailReceiver">${EmailStudent}</camunda:inputParameter>
+          <camunda:inputParameter name="EmailCC">${EmailProf}</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_00ssyye</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0lx28c4</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:serviceTask id="Urkunde_erstellen" name="Urkunde erstellen" camunda:class="de.fhaachen.gpm.practicum.GenerateAndSendPDF">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="EmailSubject">Mit Auszeichnung bestanden</camunda:inputParameter>
+          <camunda:inputParameter name="EmailBody">Sie haben mit der Gesamtnote ${FinalGrade} mit Auszeichnung bestanden!</camunda:inputParameter>
+          <camunda:inputParameter name="EmailReceiver">${EmailStudent}</camunda:inputParameter>
+          <camunda:inputParameter name="EmailCC">${EmailProf}</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_19bdldn</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0g4wzu1</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:manualTask id="Task_1fhoewo" name="Zeugnis erstellen">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="EmailSubject">Mit Auszeichnung bestanden</camunda:inputParameter>
+          <camunda:inputParameter name="EmailBody">Sie haben mit der Gesamtnote ${FinalGrade} mit Auszeichnung bestanden!</camunda:inputParameter>
+          <camunda:inputParameter name="EmailReceiver">${EmailStudent}</camunda:inputParameter>
+          <camunda:inputParameter name="EmailCC">${EmailProf}</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1bil21y</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_03n39ke</bpmn:outgoing>
+    </bpmn:manualTask>
     <bpmn:textAnnotation id="TextAnnotation_0qozkch">    <bpmn:text>Eingabe der persönlichen Daten und des Themas der Bachelorarbeit</bpmn:text>
 </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_1bqi5pz">    <bpmn:text>Der Student bestätigt in einem Formular, dass die Bachelorarbeit abgegeben wurde.</bpmn:text>
@@ -704,9 +728,6 @@ Gesamtnote: ${FinalGrade}
           <dc:Bounds x="4934.5" y="1329" width="90" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ManualTask_0qd9gn2_di" bpmnElement="Task_1fhoewo">
-        <dc:Bounds x="4847" y="1310" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_02bebts_di" bpmnElement="EndEvent_Bachelor_abgeschlossen">
         <dc:Bounds x="5044" y="285" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -987,7 +1008,7 @@ Gesamtnote: ${FinalGrade}
         <di:waypoint xsi:type="dc:Point" x="4358" y="819" />
         <di:waypoint xsi:type="dc:Point" x="4358" y="1084" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="4321" y="858.7245989304813" width="73" height="24" />
+          <dc:Bounds x="4352" y="859" width="11" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ExclusiveGateway_0innemi_di" bpmnElement="ExclusiveGateway_0innemi" isMarkerVisible="true">
@@ -1021,8 +1042,8 @@ Gesamtnote: ${FinalGrade}
       <bpmndi:BPMNEdge id="DataOutputAssociation_1ambw29_di" bpmnElement="DataOutputAssociation_1ambw29">
         <di:waypoint xsi:type="dc:Point" x="2866" y="670" />
         <di:waypoint xsi:type="dc:Point" x="2947" y="670" />
-        <di:waypoint xsi:type="dc:Point" x="2947" y="1482" />
-        <di:waypoint xsi:type="dc:Point" x="676" y="1596" />
+        <di:waypoint xsi:type="dc:Point" x="2947" y="1597" />
+        <di:waypoint xsi:type="dc:Point" x="676" y="1597" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ManualTask_073fnka_di" bpmnElement="Task_07a6vnk">
         <dc:Bounds x="1854" y="1308" width="100" height="80" />
@@ -1032,9 +1053,6 @@ Gesamtnote: ${FinalGrade}
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ManualTask_0z5frym_di" bpmnElement="Task_1c9tek0">
         <dc:Bounds x="2588" y="1308" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ManualTask_1pl51i6_di" bpmnElement="SendTask_198sad8">
-        <dc:Bounds x="2588" y="630" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ManualTask_03jvrfv_di" bpmnElement="Task_0anh99c">
         <dc:Bounds x="5012" y="1310" width="100" height="80" />
@@ -1221,7 +1239,7 @@ Gesamtnote: ${FinalGrade}
         <di:waypoint xsi:type="dc:Point" x="4809" y="1350" />
         <di:waypoint xsi:type="dc:Point" x="4847" y="1350" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="4828" y="1329" width="0" height="12" />
+          <dc:Bounds x="4783" y="1329" width="90" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_15m87ya_di" bpmnElement="SequenceFlow_15m87ya">
@@ -1249,8 +1267,14 @@ Gesamtnote: ${FinalGrade}
       <bpmndi:BPMNShape id="BusinessRuleTask_01vaymp_di" bpmnElement="Task_Kolloquiumsnote_pruefen">
         <dc:Bounds x="4472" y="1202" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="UserTask_0ywnrxx_di" bpmnElement="Task_0rfkozs">
+      <bpmndi:BPMNShape id="SendTask_0e072lx_di" bpmnElement="SendTask_198sad8">
+        <dc:Bounds x="2588" y="630" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1utnrts_di" bpmnElement="Urkunde_erstellen">
         <dc:Bounds x="4308" y="1084" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ManualTask_18qer6o_di" bpmnElement="Task_1fhoewo">
+        <dc:Bounds x="4847" y="1310" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
